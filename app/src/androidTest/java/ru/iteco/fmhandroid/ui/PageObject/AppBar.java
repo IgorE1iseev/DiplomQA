@@ -12,9 +12,10 @@ import static org.hamcrest.Matchers.allOf;
 
 import androidx.test.espresso.ViewInteraction;
 
+import io.qameta.allure.kotlin.Allure;
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.R;
-import ru.iteco.fmhandroid.ui.Utils;
+import ru.iteco.fmhandroid.ui.Utils.Utils;
 
 public class AppBar {
 
@@ -45,8 +46,8 @@ public class AppBar {
     public ViewInteraction menuAboutApp = onView(
             allOf(withId(android.R.id.title), withText("О приложении")));
 
-    @Step("Переход в раздел 'Новости'")
     public void goToNews() {
+        Allure.step("Переход в раздел 'Новости'");
         buttonMenu.check(matches(isDisplayed()));
         buttonMenu.perform(click());
         menuNews.check(matches(isDisplayed()));
@@ -54,8 +55,8 @@ public class AppBar {
         onView(isRoot()).perform(Utils.waitDisplayed(newsPage.getContainerListPageNews(), 5000));
     }
 
-    @Step("Переход в раздел 'О приложении'")
     public void goToAboutApp() {
+        Allure.step("Переход в раздел 'О приложении'");
         buttonMenu.check(matches(isDisplayed()));
         buttonMenu.perform(click());
         menuAboutApp.check(matches(isDisplayed()));
@@ -63,8 +64,8 @@ public class AppBar {
         onView(isRoot()).perform(Utils.waitDisplayed(aboutAppPage.getButtonArrowBack(), 5000));
     }
 
-    @Step("Переход в раздел 'Главная'")
     public void goToMain() {
+        Allure.step("Переход в раздел 'Главная'");
         buttonMenu.check(matches(isDisplayed()));
         buttonMenu.perform(click());
         menuMain.check(matches(isDisplayed()));
@@ -72,15 +73,15 @@ public class AppBar {
         onView(isRoot()).perform(Utils.waitDisplayed(mainPage.getContainerListNews(), 5000));
     }
 
-    @Step("Переход в раздел цитат 'Главное-жить любя'")
     public void goToOurMission() {
+        Allure.step("Переход в раздел 'Главное-жить любя'");
         buttonOurMission.check(matches(isDisplayed()));
         buttonOurMission.perform(click());
         onView(isRoot()).perform(Utils.waitDisplayed(ourMissionPage.getOurMissionTitleText(), 5000));
     }
 
-    @Step("Выход из авторизованного состояния")
     public void logOut() {
+        Allure.step("Выход из авторизованного состояния");
         ViewInteraction buttonProfile = onView(withId(R.id.authorization_image_button));
         buttonProfile.perform(click());
         ViewInteraction logOut = onView(withText("Выйти"));

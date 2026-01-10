@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -14,11 +14,15 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
+import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.PageObject.AppBar;
 import ru.iteco.fmhandroid.ui.PageObject.ControlPanelPage;
 import ru.iteco.fmhandroid.ui.PageObject.CreateNewsPage;
 import ru.iteco.fmhandroid.ui.PageObject.MainPage;
 import ru.iteco.fmhandroid.ui.PageObject.NewsPage;
+import ru.iteco.fmhandroid.ui.Utils.SuccessfulAuthorization;
+import ru.iteco.fmhandroid.ui.Utils.TestData;
+import ru.iteco.fmhandroid.ui.Utils.Utils;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
@@ -32,6 +36,7 @@ public class CreateNewsTest {
     NewsPage newsPage = new NewsPage();
     ControlPanelPage controlPanelPage = new ControlPanelPage();
     CreateNewsPage createNewsPage = new CreateNewsPage();
+
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
@@ -43,6 +48,7 @@ public class CreateNewsTest {
             successfulAuthorization.userAuthorization();
         }
     }
+
     @Feature(value = "Создание новости валидными данными")
     @Test
     public void validNewsCreate() {
@@ -50,17 +56,16 @@ public class CreateNewsTest {
         newsPage.controlPanelNewsOpen();
         controlPanelPage.createNews();
         // Добавление категории, заголовка, даты, времени, описания, нажатие на кнопку сохранения
-        createNewsPage.chooseCategoryCreateNews("Массаж");
-        createNewsPage.enterTitleCreateNews("testTitle");
+        createNewsPage.chooseCategoryCreateNews(TestData.CATEGORY_MASSAGE);
+        createNewsPage.enterTitleCreateNews(TestData.NEWS_TITLE);
         createNewsPage.enterDateCreateNews(Utils.currentDate());
-        createNewsPage.enterTimeCreateNews("20:00");
-        createNewsPage.enterDescriptionCreateNews("тестовое описание");
+        createNewsPage.enterTimeCreateNews(TestData.NEWS_TIME);
+        createNewsPage.enterDescriptionCreateNews(TestData.NEWS_DESCRIPTION);
         createNewsPage.saveNewsButton();
-//        Новость появляется внизу списка, который кто-то нагенерировал, требуется нажатие сортировки
-//        controlPanelPage.sortNewsButtonControlPanelClick();
         // Проверка, что новость появилась в списке, используется RecyclerView
-        controlPanelPage.searchNewsIsVisible("testTitle");
+        controlPanelPage.searchNewsIsVisible(TestData.NEWS_TITLE);
     }
+
     @Feature(value = "Создание новости пустыми полями")
     @Test
     public void emptyFieldsNewsCreate() {
@@ -71,7 +76,8 @@ public class CreateNewsTest {
         // Проверка, что форма создание новости все еще видна
         createNewsPage.newsCreationFormIsVisible();
     }
-//    Тест упадет, если насоздавать новостей с одинаковыми заголовками
+
+    //    Тест упадет, если насоздавать новостей с одинаковыми заголовками
     @Feature(value = "Создание новости невалидными данными (дата в будущем)")
     @Test
     public void invalidNewsCreate() {
@@ -79,14 +85,14 @@ public class CreateNewsTest {
         newsPage.controlPanelNewsOpen();
         controlPanelPage.createNews();
         // Добавление категории,заголовка, даты в будущем, времени, описания, нажатие на кнопку сохранения
-        createNewsPage.chooseCategoryCreateNews("Праздник");
-        createNewsPage.enterTitleCreateNews("futureTitle");
+        createNewsPage.chooseCategoryCreateNews(TestData.CATEGORY_HOLIDAY);
+        createNewsPage.enterTitleCreateNews(TestData.FUTURE_NEWS_TITLE);
         createNewsPage.enterDateCreateNews(Utils.dateMore1Years());
-        createNewsPage.enterTimeCreateNews("20:00");
-        createNewsPage.enterDescriptionCreateNews("будущее");
+        createNewsPage.enterTimeCreateNews(TestData.NEWS_TIME);
+        createNewsPage.enterDescriptionCreateNews(TestData.NEWS_DESCRIPTION);
         createNewsPage.saveNewsButton();
         // Проверка, что новость появилась в списке
-        controlPanelPage.searchNewsIsVisible("futureTitle");
+        controlPanelPage.searchNewsIsVisible(TestData.FUTURE_NEWS_TITLE);
     }
 
 }

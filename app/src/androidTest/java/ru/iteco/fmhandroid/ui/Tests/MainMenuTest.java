@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Tests;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
@@ -14,9 +14,12 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
+import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.PageObject.AppBar;
 import ru.iteco.fmhandroid.ui.PageObject.MainPage;
 import ru.iteco.fmhandroid.ui.PageObject.NewsPage;
+import ru.iteco.fmhandroid.ui.Utils.SuccessfulAuthorization;
+import ru.iteco.fmhandroid.ui.Utils.Utils;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)

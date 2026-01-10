@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -17,10 +17,14 @@ import java.util.List;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
+import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.PageObject.AppBar;
 import ru.iteco.fmhandroid.ui.PageObject.FilterNewsPage;
 import ru.iteco.fmhandroid.ui.PageObject.MainPage;
 import ru.iteco.fmhandroid.ui.PageObject.NewsPage;
+import ru.iteco.fmhandroid.ui.Utils.SuccessfulAuthorization;
+import ru.iteco.fmhandroid.ui.Utils.TestData;
+import ru.iteco.fmhandroid.ui.Utils.Utils;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
@@ -33,6 +37,7 @@ public class FilterNewsTest {
     SuccessfulAuthorization successfulAuthorization = new SuccessfulAuthorization();
     NewsPage newsPage = new NewsPage();
     FilterNewsPage filterNewsPage = new FilterNewsPage();
+
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -53,18 +58,28 @@ public class FilterNewsTest {
         newsPage.filterNewsOpen();
 //        Создаётся список строк (List<String>), содержащий названия категорий новостей.
 //        Arrays.asList заполняет значениями
-        List<String> categories = Arrays.asList("Объявление", "День рождения", "Зарпалата", "Профсоюз", "Праздник", "Массаж", "Благодарность", "Нужна помощь");
+        List<String> categories = Arrays.asList(
+                TestData.CATEGORY_ANNOUNCEMENT,
+                TestData.CATEGORY_BIRTHDAY,
+                TestData.CATEGORY_SALARY,
+                TestData.CATEGORY_UNION,
+                TestData.CATEGORY_HOLIDAY,
+                TestData.CATEGORY_MASSAGE,
+                TestData.CATEGORY_THANKS,
+                TestData.CATEGORY_HELP
+        );
 //        Берёт каждый элемент из списка и сохраняет в переменную category.
         for (String category : categories) {
             filterNewsPage.chooseCategory(category);
         }
     }
+
     @Feature(value = "Фильтрация новостей при валидных данных")
     @Test
     public void filterNewsByValidData() {
         appBar.goToNews();
         newsPage.filterNewsOpen();
-        filterNewsPage.chooseCategory("Объявление");
+        filterNewsPage.chooseCategory(TestData.CATEGORY_ANNOUNCEMENT);
         filterNewsPage.chooseDateStart(Utils.currentDate());
         filterNewsPage.chooseDateEnd(Utils.currentDate());
         filterNewsPage.applyFilter();
@@ -76,18 +91,19 @@ public class FilterNewsTest {
     public void filterNewsByEmptyFields() {
         appBar.goToNews();
         newsPage.filterNewsOpen();
-        filterNewsPage.chooseCategory("");
-        filterNewsPage.chooseDateStart("");
-        filterNewsPage.chooseDateEnd("");
+        filterNewsPage.chooseCategory(TestData.EMPTY_DATA);
+        filterNewsPage.chooseDateStart(TestData.EMPTY_DATA);
+        filterNewsPage.chooseDateEnd(TestData.EMPTY_DATA);
         filterNewsPage.applyFilter();
         newsPage.newsPageElementIsVisible();
     }
+
     @Feature(value = "Фильтрация новостей по категории")
     @Test
     public void filterNewsByCategory() {
         appBar.goToNews();
         newsPage.filterNewsOpen();
-        filterNewsPage.chooseCategory("День рождения");
+        filterNewsPage.chooseCategory(TestData.CATEGORY_BIRTHDAY);
         filterNewsPage.applyFilter();
         newsPage.newsPageElementIsVisible();
     }
@@ -108,7 +124,7 @@ public class FilterNewsTest {
     public void cancelFilter() {
         appBar.goToNews();
         newsPage.filterNewsOpen();
-        filterNewsPage.chooseCategory("Объявление");
+        filterNewsPage.chooseCategory(TestData.CATEGORY_ANNOUNCEMENT);
         filterNewsPage.chooseDateStart(Utils.currentDate());
         filterNewsPage.chooseDateEnd(Utils.currentDate());
         filterNewsPage.cancelFilter();

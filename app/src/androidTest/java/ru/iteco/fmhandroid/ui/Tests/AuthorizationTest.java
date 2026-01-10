@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Tests;
 
 
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -15,9 +15,12 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
+import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.PageObject.AppBar;
 import ru.iteco.fmhandroid.ui.PageObject.AuthorizationPage;
 import ru.iteco.fmhandroid.ui.PageObject.MainPage;
+import ru.iteco.fmhandroid.ui.Utils.TestData;
+import ru.iteco.fmhandroid.ui.Utils.Utils;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
@@ -28,7 +31,6 @@ public class AuthorizationTest {
     AuthorizationPage authorizationPage = new AuthorizationPage();
     AppBar appBar = new AppBar();
     MainPage mainPage = new MainPage();
-//    PopupPage popupPage = new PopupPage();
 
 
     @Rule
@@ -50,8 +52,8 @@ public class AuthorizationTest {
     @Test
     public void validAuthorization() {
         authorizationPage.authorizationVisibility();
-        authorizationPage.enterLogin("login2");
-        authorizationPage.enterPassword("password2");
+        authorizationPage.enterLogin(TestData.VALID_LOGIN);
+        authorizationPage.enterPassword(TestData.VALID_PASSWORD);
         authorizationPage.clickEnterButton();
         mainPage.mainPageIsDisplayed();
     }
@@ -60,51 +62,45 @@ public class AuthorizationTest {
     @Test
     public void invalidAuthorization() {
         authorizationPage.authorizationVisibility();
-        authorizationPage.enterLogin("loginn25");
-        authorizationPage.enterPassword("passwordd25");
+        authorizationPage.enterLogin(TestData.INVALID_LOGIN);
+        authorizationPage.enterPassword(TestData.INVALID_PASSWORD);
         authorizationPage.clickEnterButton();
         authorizationPage.authorizationVisibility();
 //      оставлена видимость авторизации, потому что не находит поп-ап на экране.
 //      Элемент скрыт, не получается найти.
-
-//        popupPage.popupSomethingWrongVisibility();
-
     }
 
     @Feature(value = "Авторизация с пустыми полями ввода")
     @Test
     public void emptyFieldsAuthorization() {
         authorizationPage.authorizationVisibility();
-        authorizationPage.enterLogin("");
-        authorizationPage.enterPassword("");
+        authorizationPage.enterLogin(TestData.EMPTY_DATA);
+        authorizationPage.enterPassword(TestData.EMPTY_DATA);
         authorizationPage.clickEnterButton();
         authorizationPage.authorizationVisibility();
 
-//        popupPage.popupEmptyFieldsVisibility();
     }
 
     @Feature(value = "Ввод спецcимволов при авторизации")
     @Test
     public void specialSymbolsAuthorization() {
         authorizationPage.authorizationVisibility();
-        authorizationPage.enterLogin("login2@");
-        authorizationPage.enterPassword("password2");
+        authorizationPage.enterLogin(TestData.INVALID_LOGIN_SYMBOLS);
+        authorizationPage.enterPassword(TestData.INVALID_PASSWORD_SYMBOLS);
         authorizationPage.clickEnterButton();
         authorizationPage.authorizationVisibility();
 
-//        popupPage.popupSomethingWrongVisibility();
     }
 
     @Feature(value = "Ввод кириллицы при авторизации")
     @Test
     public void cyrillicAuthorization() {
         authorizationPage.authorizationVisibility();
-        authorizationPage.enterLogin("логин2");
-        authorizationPage.enterPassword("пароль2");
+        authorizationPage.enterLogin(TestData.INVALID_LOGIN_CYRILLIC);
+        authorizationPage.enterPassword(TestData.INVALID_PASSWORD_CYRILLIC);
         authorizationPage.clickEnterButton();
         authorizationPage.authorizationVisibility();
 
-//        popupPage.popupSomethingWrongVisibility();
     }
 }
 

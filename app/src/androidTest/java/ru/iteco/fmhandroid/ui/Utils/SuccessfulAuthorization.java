@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -15,8 +15,8 @@ public class SuccessfulAuthorization {
 
     public void userAuthorization() {
         Allure.step("Пользователь авторизуется");
-        authorizationPage.enterLogin("login2");
-        authorizationPage.enterPassword("password2");
+        authorizationPage.enterLogin(TestData.VALID_LOGIN);
+        authorizationPage.enterPassword(TestData.VALID_PASSWORD);
         authorizationPage.clickEnterButton();
         onView(isRoot()).perform(Utils.waitDisplayed(appBar.getAuthorizationButton(), 7000));
         mainPage.newsPageIsDisplayed();

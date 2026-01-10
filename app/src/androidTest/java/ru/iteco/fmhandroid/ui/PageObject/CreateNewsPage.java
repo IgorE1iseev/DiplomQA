@@ -9,12 +9,12 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static ru.iteco.fmhandroid.ui.Utils.Utils.waitDisplayed;
 
-import static ru.iteco.fmhandroid.ui.Utils.waitDisplayed;
-
-import io.qameta.allure.kotlin.Step;
-import ru.iteco.fmhandroid.R;
 import androidx.test.espresso.ViewInteraction;
+
+import io.qameta.allure.kotlin.Allure;
+import ru.iteco.fmhandroid.R;
 
 
 public class CreateNewsPage {
@@ -28,43 +28,50 @@ public class CreateNewsPage {
     public int getSaveButtonCreateNews() {
         return saveButtonCreateNews;
     }
+
     private final int containerCreateNews = R.id.container_custom_app_bar_include_on_fragment_create_edit_news;
 
-    @Step("Выбор категории в создании новости")
     public void chooseCategoryCreateNews(String text) {
+        Allure.step("Выбор категории в создании новости");
         categoryCreateNews.check(matches(isDisplayed()));
         categoryCreateNews.perform(replaceText(text), closeSoftKeyboard());
     }
-    @Step("Ввод заголовка в создании новости")
+
     public void enterTitleCreateNews(String text) {
+        Allure.step("Ввод заголовка в создании новости");
         titleCreateNews.check(matches(isDisplayed()));
         titleCreateNews.perform(replaceText(text), closeSoftKeyboard());
     }
-    @Step("Ввод даты публикации в создании новости")
+
     public void enterDateCreateNews(String text) {
+        Allure.step("Ввод даты публикации в создании новости");
         dateCreateNews.check(matches(isDisplayed()));
         dateCreateNews.perform(replaceText(text), closeSoftKeyboard());
     }
-    @Step("Ввод времени публикации в создании новости")
+
     public void enterTimeCreateNews(String text) {
+        Allure.step("Ввод времени публикации в создании новости");
         timeCreateNews.check(matches(isDisplayed()));
         timeCreateNews.perform(replaceText(text), closeSoftKeyboard());
     }
-    @Step("Ввод описания в создании новости")
+
     public void enterDescriptionCreateNews(String text) {
+        Allure.step("Ввод описания в создании новости");
         descriptionCreateNews.check(matches(isDisplayed()));
         descriptionCreateNews.perform(replaceText(text), closeSoftKeyboard());
     }
-//    Дожидается появление кнопки, скроллит экран ниже и нажимает
-    @Step("Нажатие на кнопку 'Сохранить'")
+
+    //    Дожидается появление кнопки, скроллит экран ниже и нажимает
     public void saveNewsButton() {
+        Allure.step("Нажатие на кнопку 'Сохранить'");
         onView(isRoot()).perform(waitDisplayed(saveButtonCreateNews, 4000));
         onView(withId(R.id.save_button))
                 .check(matches(isDisplayed()))
                 .perform(scrollTo(), click());
     }
-    @Step("Видимость открытой страницы 'Создание новости'")
+
     public void newsCreationFormIsVisible() {
+        Allure.step("Проверка видимости страницы 'Создание новости'");
         onView(withId(containerCreateNews)).check(matches(isDisplayed()));
     }
 }

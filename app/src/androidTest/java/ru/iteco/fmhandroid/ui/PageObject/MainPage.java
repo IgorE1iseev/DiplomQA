@@ -10,7 +10,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.ViewInteraction;
 
-import io.qameta.allure.kotlin.Step;
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class MainPage {
@@ -26,8 +26,8 @@ public class MainPage {
     // проверяется видимость элемента containerListNews (раздел новости на главной)
     // true означает, что контейнер есть и пользователь находится на главной странице,
     // false означает, что пользователь не видит контейнер с новостями и находится на авторизации.
-    @Step("Видимость элемента-контейнера с новостями")
     public Boolean mainPageIsDisplayed() {
+        Allure.step("Проверяем видимость элемента-контейнера с новостями");
         try {
             onView(withId(containerListNews)).check(matches(isDisplayed()));
             return true;
@@ -36,14 +36,14 @@ public class MainPage {
         }
     }
 
-    @Step("Видимость раздела 'Новости'")
     public void newsPageIsDisplayed() {
+        Allure.step("Видимость раздела 'Новости'");
         onView(withId(containerListNews)).check(matches(isDisplayed()));
         textNewsOnMainPage.check(matches(withText("Новости")));
     }
-    
-    @Step("Нажатие кнопки 'Все новости'")
+
     public void clickAllNewsButton() {
+        Allure.step("Нажатие кнопки 'Все новости'");
         onView(withId(allNewsButton));
         textAllNews.check(matches(isDisplayed()));
         textAllNews.perform(click());

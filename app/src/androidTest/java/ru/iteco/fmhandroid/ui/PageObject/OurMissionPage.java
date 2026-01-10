@@ -6,7 +6,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import io.qameta.allure.kotlin.Step;
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class OurMissionPage {
@@ -16,8 +16,8 @@ public class OurMissionPage {
         return ourMissionTitleText;
     }
 
-    @Step("Видимость страницы с цитатами")
     public void ourMissionIsDisplayed() {
+        Allure.step("Проверяем видимость страницы с цитатами");
         onView(withId(ourMissionTitleText)).check(matches(isDisplayed()));
         onView(withId(ourMissionTitleText)).check(matches(withText("Главное - жить любя")));
     }

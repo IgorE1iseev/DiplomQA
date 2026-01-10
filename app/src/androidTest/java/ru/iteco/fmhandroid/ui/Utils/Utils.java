@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Utils;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 

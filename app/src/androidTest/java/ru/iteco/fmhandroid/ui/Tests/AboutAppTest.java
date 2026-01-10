@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -14,9 +14,12 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
+import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.PageObject.AboutAppPage;
 import ru.iteco.fmhandroid.ui.PageObject.AppBar;
 import ru.iteco.fmhandroid.ui.PageObject.MainPage;
+import ru.iteco.fmhandroid.ui.Utils.SuccessfulAuthorization;
+import ru.iteco.fmhandroid.ui.Utils.Utils;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
@@ -29,9 +32,10 @@ public class AboutAppTest {
     SuccessfulAuthorization successfulAuthorization = new SuccessfulAuthorization();
     AboutAppPage aboutAppPage = new AboutAppPage();
 
-//    Сохраняем ссылки
+    //    Сохраняем ссылки
     String privacyUrl = "https://vhospice.org/#/privacy-policy";
     String termsUrl = "https://vhospice.org/#/terms-of-use";
+
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
@@ -43,7 +47,8 @@ public class AboutAppTest {
             successfulAuthorization.userAuthorization();
         }
     }
-//    При нажатии на ссылку просто пустой экран, за который не зацепиться при проверке
+
+    //    При нажатии на ссылку просто пустой экран, за который не зацепиться при проверке
     @Feature(value = "Переход по ссылке 'Политика конфиденциальности'")
     @Test
     public void openPrivacyPolicy() {
@@ -51,6 +56,7 @@ public class AboutAppTest {
         aboutAppPage.goToPrivacyPolicy(privacyUrl);
         aboutAppPage.clickToBackButton();
     }
+
     //    При нажатии на ссылку просто пустой экран, за который не зацепиться при проверке
     @Feature(value = "Переход по ссылке 'Пользовательское соглашение'")
     @Test

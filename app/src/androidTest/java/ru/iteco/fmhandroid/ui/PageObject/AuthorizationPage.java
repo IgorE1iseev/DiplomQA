@@ -12,33 +12,33 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.espresso.ViewInteraction;
 
-import io.qameta.allure.kotlin.Step;
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 
 public class AuthorizationPage {
-    @Step("Наличие заголовка 'Авторизация'")
     public void authorizationVisibility() {
+        Allure.step("Наличие заголовка 'Авторизация'");
         ViewInteraction authorizationVisibility = onView(withText("Авторизация"));
         authorizationVisibility.check(matches(isDisplayed()));
     }
 
-    @Step("Ввод логина")
     public void enterLogin(String login) {
+        Allure.step("Ввод логина");
         ViewInteraction enterLogin = onView(withHint("Логин"));
         enterLogin.perform(replaceText(login));
         closeSoftKeyboard();
     }
 
-    @Step("Ввод пароля")
     public void enterPassword(String password) {
+        Allure.step("Ввод пароля");
         ViewInteraction enterPassword = onView(withHint("Пароль"));
         enterPassword.perform(replaceText(password));
         closeSoftKeyboard();
     }
 
-    @Step("Нажатие кнопки 'Войти'")
     public void clickEnterButton() {
+        Allure.step("Нажатие кнопки 'Войти'");
         ViewInteraction clickEnterButton = onView(withId(R.id.enter_button));
         clickEnterButton.check(matches(isDisplayed()));
         clickEnterButton.perform(click());

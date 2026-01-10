@@ -2,26 +2,28 @@ package ru.iteco.fmhandroid.ui.PageObject;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.intent.Intents.intended;
 
 import android.content.Intent;
 
 import androidx.test.espresso.intent.Intents;
 
-import io.qameta.allure.kotlin.Step;
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class AboutAppPage {
-//    Кнопка "стрелка назад"
+    //    Кнопка "стрелка назад"
     int buttonArrowBack = R.id.about_back_image_button;
+
     public int getButtonArrowBack() {
         return buttonArrowBack;
     }
-    @Step("Переход в 'Политика конфиденциальности'")
+
     public void goToPrivacyPolicy(String url) {
+        Allure.step("Переход в 'Политика конфиденциальности'");
 //        Активирует перехват Intent'ов
         Intents.init();
 //        Нажимает на ссылку
@@ -33,8 +35,9 @@ public class AboutAppPage {
 //        Завершает перехват
         Intents.release();
     }
-    @Step("Переход в 'Пользовательское соглашение'")
+
     public void goToTermsOfUse(String url) {
+        Allure.step("Переход в 'Пользовательское соглашение'");
 //        Активирует перехват Intent'ов
         Intents.init();
 //        Нажимает на ссылку
@@ -46,8 +49,9 @@ public class AboutAppPage {
 //        Завершает перехват
         Intents.release();
     }
-    @Step("Нажатие на кнопку-стрелку 'Назад'")
+
     public void clickToBackButton() {
+        Allure.step("Нажатие на кнопку-стрелку 'Назад'");
         onView(withId(buttonArrowBack)).perform(click());
     }
 }
